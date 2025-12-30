@@ -260,6 +260,9 @@ samples/project_description.txt
 * **ChatGPT (OpenAI)**
   Used for assistance with prompt refinement, code review, and documentation.
 
+* **Visual Studio Code**  
+  Used as the development environment.
+
 ---
 
 
