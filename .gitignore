@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Generated outputs
+samples/*.json
+samples/*.txt
+
+# Logs
+*.log

@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cost Optimization Report Schema",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "project_name",
+    "analysis",
+    "recommendations",
+    "summary"
+  ],
+
+  "properties": {
+    "project_name": {
+      "type": "string",
+      "minLength": 1
+    },
+
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_monthly_cost",
+        "budget",
+        "budget_variance",
+        "is_over_budget",
+        "service_costs",
+        "high_cost_services"
+      ],
+      "properties": {
+        "total_monthly_cost": { "type": "integer", "minimum": 0 },
+        "budget": { "type": "integer", "minimum": 0 },
+        "budget_variance": { "type": "integer" },
+        "is_over_budget": { "type": "boolean" },
+
+        "service_costs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+
+        "high_cost_services": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "service",
+          "current_cost",
+          "potential_savings",
+          "recommendation_type",
+          "description",
+          "implementation_effort",
+          "risk_level",
+          "steps",
+          "cloud_providers"
+        ],
+        "properties": {
+          "title": { "type": "string" },
+          "service": { "type": "string" },
+          "current_cost": { "type": "integer", "minimum": 0 },
+          "potential_savings": { "type": "integer", "minimum": 0 },
+          "recommendation_type": { "type": "string" },
+          "description": { "type": "string" },
+
+          "implementation_effort": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+
+          "risk_level": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+
+          "steps": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+
+          "cloud_providers": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_potential_savings",
+        "savings_percentage",
+        "recommendations_count",
+        "high_impact_recommendations"
+      ],
+      "properties": {
+        "total_potential_savings": { "type": "integer", "minimum": 0 },
+        "savings_percentage": { "type": "number", "minimum": 0 },
+        "recommendations_count": { "type": "integer", "minimum": 0 },
+        "high_impact_recommendations": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}
