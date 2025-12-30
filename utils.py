@@ -3,11 +3,11 @@ import re
 import json
 
 
-# -------------------------------------------------------------
+
 # Basic JSON Extractor (Used for Billing + Report)
-# -------------------------------------------------------------
+
 def extract_json_object_or_array(text):
-    """Extract ONLY the first valid JSON object {...} or array [...] from text."""
+    """Extracts ONLY the first valid JSON object {...} or array [...] from text."""
     if not isinstance(text, str):
         raise ValueError("Input must be a string")
 
@@ -30,11 +30,11 @@ def extract_json_object_or_array(text):
     raise ValueError("No valid JSON array or object found in model output.")
 
 
-# -------------------------------------------------------------
+
 # Billing Aggregation Utilities
-# -------------------------------------------------------------
+
 def aggregate_service_costs(billing):
-    """Aggregate total costs and per-service costs from billing records."""
+    """Aggregates total costs and per-service costs from billing records."""
     total = 0
     svc_costs = {}
 
@@ -55,24 +55,23 @@ def aggregate_service_costs(billing):
     return total, svc_costs, top_services
 
 
-# -------------------------------------------------------------
-# Profile Parser Utilities
-# -------------------------------------------------------------
+
+# Profile Parser Utilitis
 def _strip_code_fences(text):
-    """Remove Markdown code fences like ```json ... ```."""
+    """Removes Markdown code fences like ```json ... ```."""
     text = re.sub(r"```(?:json)?", "", text)
     return re.sub(r"```", "", text).strip()
 
 
 def _clean_json_like(s):
-    """Fix simple JSON mistakes like single quotes and trailing commas."""
+    """Fixes simple JSON mistakes like single quotes and trailing commas."""
     s = re.sub(r"(?<!\\)'", '"', s)
     s = re.sub(r",\s*([}\]])", r"\1", s)
     return s
 
 
 def parse_json_response_for_profile(raw_text):
-    """Parse JSON object from LLM output for profile extraction."""
+    """Parses JSON object from LLM output for profile extraction."""
     if not isinstance(raw_text, str):
         raise ValueError("Model output is not text")
 
